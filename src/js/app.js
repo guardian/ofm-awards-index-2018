@@ -1,29 +1,6 @@
-// function checkArticle(url, successCallback, failCallback) {
-//   var xhr = new XMLHttpRequest();
-//   var method = "HEAD";
-// 
-//   xhr.open(method, url, true);
-// 
-//   xhr.onreadystatechange = function () {
-//     if(xhr.readyState === 4) {
-//       if (xhr.status===200) {
-//         successCallback();
-//       } else {
-//         failCallback();
-//       }
-//     }
-//   };
-// 
-//   xhr.send(true);
-// 
-// }
-// 
-// 
-// checkArticle("https://www.theguardian.com/p/9fgdf", function() {
-//   console.log('it went ok');
-// }, function() {
-//   console.log('it went badly');
-// });
+// 🤞
+
+import loadJson from '../components/load-json/'
 
 function setupParent() {
   var parentDoc = parent.document;
@@ -44,8 +21,33 @@ function setupMain() {
 }
 
 function start() {
+  var ms = new Date().getTime();
   setupParent();
   setupMain();
+  loadData(ms);
+  
 }
 
 start();
+
+function loadData(ms) {
+  var pageId = pageId();
+  loadJson("https://interactive.guim.co.uk/docsdata-test/1sy_6UjKaJCPq4WX1sLo9gBay-tE7S0hJsigHk2jdWqI.json")
+  .then((data) => {
+    var awards = data.sheets[Object.keys(data.sheets)[0]];
+    console.log(awards);
+    for (var i = 0; awards.length > i; i++) {
+      var award = awards[i];
+      console.log(award.Name);
+      // guardian.config.page.pageId
+    }
+  });
+}
+
+function pageId() {
+  if (guardian && guardian.config && guardian.config.page && guardian.config.page.pageId) {
+    return guardian.config.page.pageId;
+  } else if (window.GU && window.GU.opts && window.GU.opts.pageId) {
+    return window.GU.opts.pageId;
+  }
+}
