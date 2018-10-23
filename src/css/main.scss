@@ -5,13 +5,16 @@
 @import "embed";
 // Uncomment for full screen (including immersive article main media)
 //@import "fullscreen";
-.element-atom,
-.interactive-atom {
-    margin: 0 !important;
+
+.interactive-wrapper {
+  display: none;
+  .render & {
+    display: block;
+  }
 }
 
 .ofm-awards-index {
-  background-color: #f6f6f6;
+  background-color: #fff;
   -webkit-font-smoothing: antialiased;
   .ofm-next-up {
     position: relative;
@@ -22,11 +25,12 @@
       background-size: cover;
     }
     &__link {
-      // position: absolute;
-      // top: 0;
-      // left: 0;
-      // right: 0;
-      // bottom: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
     }
     &__label {
       position: absolute;
@@ -45,13 +49,22 @@
       &__name {
         padding: 0 2px 8px 10px;
         font-family: "Guardian Egyptian Web",Georgia,serif;
-        font-size: 28px;
-        line-height: 32px;
+        font-size: 21px;
+        line-height: 22px;
         font-weight: 700;
         .icon__obj {
           background-color: currentColor;
-          width: 24px;
-          height: 24px;
+          width: 18px;
+          height: 18px;
+        }
+        @include mq-add-breakpoint(mobileSmall, 340px);
+        @include mq(mobileSmall) {
+          font-size: 28px;
+          line-height: 30px;
+          .icon__obj {
+            width: 24px;
+            height: 24px;
+          }
         }
       }
     }
@@ -78,7 +91,7 @@
   }
 
   .ofm-index {
-    background-color: #fff;
+    background-color: #f6f6f6;
     display: block;
     margin-right: 64px;
     &__expand {
@@ -88,6 +101,7 @@
       font-family: "Guardian Text Sans Web","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
       padding: 4px 10px 8px;
       color: #BB3B80;
+      cursor: pointer;
       .icon__obj {
         width: 22px;
         height: 22px;
@@ -114,6 +128,7 @@
         padding-right: 8px;
         margin-left: 10px;
         border-top: 1px solid transparent;
+        text-decoration: none;
         &:first-child {
           border-top: 0;
         }
@@ -161,6 +176,13 @@
     }
     
   }
-  
+
+  // @include mq($from: 300px, $until: 300px) {
+  //   background-color: #fff;
+  //   .ofm-index {
+  //     background-color: #f6f6f6;
+  //   }
+  // }
+
 }
 
